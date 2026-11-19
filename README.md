@@ -1,8 +1,16 @@
-# steganosaurus
+<p align="center">
+  <img src="SteganoSaurus.jpeg" alt="SteganoSaurus-Logo – ein Stegosaurus im Hoodie" width="520">
+</p>
 
-Steganografie-Analyse-Tool in Go – gebaut für CTF-Spieler (TryHackMe, HackTheBox, picoCTF …).
-Eine statische Binary statt zehn Einzeltools: `steganosaurus scan` erkennt den Dateityp, führt alle passenden
-Analysen aus, steigt rekursiv in extrahierte Daten ein und hebt Flags wie `THM{…}` oder `HTB{…}` hervor.
+<h1 align="center">steganosaurus</h1>
+
+<p align="center">
+  <strong>Steganografie-Analyse für CTF-Spieler – eine statische Binary statt zehn Einzeltools.</strong>
+</p>
+
+`steganosaurus scan` erkennt den Dateityp, führt alle passenden Analysen aus, steigt rekursiv in
+extrahierte Daten ein und hebt Flags wie `THM{…}` oder `HTB{…}` hervor. Gebaut für TryHackMe,
+HackTheBox und picoCTF.
 
 > Status: früh in Entwicklung (Meilenstein M1 – Grundgerüst). Siehe [Spezifikation](docs/SPEC.md) und [Backlog](docs/BACKLOG.md).
 
