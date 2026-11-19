@@ -1,0 +1,12 @@
+# Build output
+/bin/
+/dist/
+/steganosaurus
+
+# Scan output directories (default: <file>_steg/)
+*_steg/
+
+# Go
+*.test
+*.out
+/testdata/fuzz/

@@ -169,10 +169,11 @@ Exit-Codes: `0` = Analyse ok, kein Flag · `1` = Fehler · `2` = Flag gefunden
 ```
 cmd/steganosaurus/      # main, Cobra-Kommandos
 internal/
-  engine/               # Scheduler, Rekursion, Scoring, Provenienz
+  cli/                  # Kommandos, Flags, Exit-Codes
+  engine/               # Analyzer-Interface, Scheduler, Rekursion, Scoring, Provenienz
   detect/               # Dateityp-Erkennung (Magic Bytes)
-  analyzer/             # Analyzer-Interface + Registry
-    meta/  strings/  carve/  lsb/  steghide/  structure/
+  analyzer/             # Registry aller eingebauten Analyzer
+    filetype/  meta/  strings/  carve/  lsb/  steghide/  structure/
   decode/               # Base*, ROT, Morse, Ketten-Dekodierung
   flag/                 # Flag-Muster und Matching
   report/               # Terminal- und JSON-Ausgabe
@@ -183,19 +184,20 @@ testdata/               # Challenge-Dateien + erwartete Ergebnisse
 Das zentrale Interface sieht so aus:
 
 ```go
+// package engine
 type Analyzer interface {
     Name() string
     Supports(ft detect.FileType) bool
-    Analyze(ctx context.Context, in *engine.Input) ([]engine.Finding, error)
+    Analyze(ctx context.Context, in *Input) ([]Finding, error)
 }
 
 type Finding struct {
     Analyzer   string
     Title      string
     Detail     string
-    Score      int            // 0–100
-    Location   string         // Offset, Chunk, LSB-Parameter …
-    Artifact   *engine.Artifact // extrahierte Daten (optional, wird rekursiv gescannt)
+    Score      int       // 0–100
+    Location   string    // Offset, Chunk, LSB-Parameter …
+    Artifact   *Artifact // extrahierte Daten (optional, wird rekursiv gescannt)
     Flags      []string
     Provenance []string
 }
@@ -204,6 +206,10 @@ type Finding struct {
 - Die Engine verteilt Inputs an alle unterstützenden Analyzer und führt sie über einen Worker-Pool aus, gesteuert mit `context` für Abbruch und Timeouts.
 - Artefakte werden per Hash dedupliziert, damit keine Endlosschleifen entstehen.
 - Analyzer sind reine Funktionen auf `[]byte` bzw. `io.ReaderAt`, Seiteneffekte gibt es nur in `report`.
+- Das Interface liegt in `engine` (nicht in `analyzer`), damit die Analyzer-Pakete `engine` importieren können, ohne einen Importzyklus zu erzeugen.
+- Auch Eingaben jenseits von `--depth` werden noch nach Flags durchsucht; die Tiefe begrenzt nur die Analyzer.
+- Analyzer-Fehler und Panics brechen den Scan nicht ab, sondern erscheinen als „Analyzer Errors“ im Report.
+- Ausgabesprache des Tools ist Englisch (internationale CTF-Community); die Projektdokumentation ist Deutsch.
 
 ## 8. Nicht-funktionale Anforderungen
 
