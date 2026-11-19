@@ -1,6 +1,7 @@
 # Steganosaurus – Spezifikation (Kern / MVP)
 
 > Status: Entwurf · Stand: 2026-11-19
+> Projektkontext und Zielsetzung: siehe [CONTEXT.md](CONTEXT.md)
 > Weiterführende Features: siehe [BACKLOG.md](BACKLOG.md)
 
 ## 1. Ziel und Motivation
