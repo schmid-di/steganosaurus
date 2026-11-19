@@ -9,4 +9,5 @@
 # Go
 *.test
 *.out
-/testdata/fuzz/
+# Note: minimized fuzz crashers under testdata/fuzz/ are committed as
+# regression seeds; the large generated corpus lives in the Go build cache.

@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/schmid-di/steganosaurus/internal/detect"
+	"github.com/schmid-di/steganosaurus/internal/flag"
 )
 
 // Analyzer inspects one input and reports findings.
@@ -30,6 +31,14 @@ type Input struct {
 	Type       detect.FileType
 	Depth      int      // 0 for the scanned file
 	Provenance []string // chain from the scanned file to this input
+	// Matcher is the scan's flag matcher; analyzers may use it to judge
+	// candidates (e.g. accept a decoding only if it reveals a flag).
+	Matcher *flag.Matcher
+}
+
+// HasFlag reports whether b contains a flag according to in.Matcher.
+func (in *Input) HasFlag(b []byte) bool {
+	return in.Matcher != nil && len(in.Matcher.Find(b)) > 0
 }
 
 // Artifact is data extracted by an analyzer. Analyzers set Name and Data;

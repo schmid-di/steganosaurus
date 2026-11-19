@@ -75,7 +75,7 @@ func (e *Engine) Run(ctx context.Context, name string, data []byte) (*Result, er
 	defer cancel()
 
 	rootHash := hash(data)
-	root := &Input{Name: name, Data: data, Type: detect.Detect(data), Provenance: []string{name}}
+	root := &Input{Name: name, Data: data, Type: detect.Detect(data), Provenance: []string{name}, Matcher: e.opts.Matcher}
 	s := &scan{
 		e:        e,
 		cancel:   cancel,
@@ -241,6 +241,7 @@ func (s *scan) collect(in *Input, a Analyzer, f Finding) *Input {
 				Type:       art.Type,
 				Depth:      in.Depth + 1,
 				Provenance: append(slices.Clone(in.Provenance), f.Analyzer+":"+art.Name),
+				Matcher:    in.Matcher,
 			}
 		}
 	}
