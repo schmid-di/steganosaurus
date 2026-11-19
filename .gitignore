@@ -1,0 +1,34 @@
+# --- Build output ---
+/bin/
+/dist/
+/steganosaurus
+
+# --- Scan output directories (default: <file>_steg/) ---
+*_steg/
+
+# --- Go ---
+*.test
+*.out
+# Minimized fuzz crashers under testdata/fuzz/ are committed as regression
+# seeds; the large generated corpus lives in the Go build cache, not here.
+
+# --- AI assistant / coding-agent local artifacts ---
+# Personal, machine-local or ephemeral state written by coding agents. These
+# never belong in version control. Shared, intentional config (for example a
+# committed .claude/settings.json) is NOT ignored and can be added explicitly.
+.claude/settings.local.json
+.claude/*.local.json
+.claude/todos/
+.claude/.last*
+.aider*
+.cursor/
+.cursorignore
+.continue/
+.windsurf/
+.codeium/
+.gptignore
+*.local.md
+# Scratchpads some agents drop in-repo; keep real work out of these.
+/.scratch/
+/scratchpad/
+/tmp-agent/
