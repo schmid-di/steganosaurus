@@ -3,7 +3,10 @@
 package analyzer
 
 import (
+	"github.com/schmid-di/steganosaurus/internal/analyzer/carve"
 	"github.com/schmid-di/steganosaurus/internal/analyzer/filetype"
+	"github.com/schmid-di/steganosaurus/internal/analyzer/meta"
+	"github.com/schmid-di/steganosaurus/internal/analyzer/strings"
 	"github.com/schmid-di/steganosaurus/internal/engine"
 )
 
@@ -11,5 +14,8 @@ import (
 func All() []engine.Analyzer {
 	return []engine.Analyzer{
 		filetype.New(),
+		meta.New(),
+		strings.New(),
+		carve.New(),
 	}
 }

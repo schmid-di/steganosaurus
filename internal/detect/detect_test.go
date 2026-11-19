@@ -45,7 +45,7 @@ func TestDetect(t *testing.T) {
 		{"rar", []byte("Rar!\x1a\x07\x01\x00"), RAR},
 		{"7z", []byte("7z\xbc\xaf\x27\x1c\x00\x04"), SevenZip},
 		{"gzip", []byte("\x1f\x8b\x08\x00"), Gzip},
-		{"bzip2", []byte("BZh91AY&SY"), Bzip2},
+		{"bzip0", []byte("BZh91AY&SY"), Bzip2},
 		{"xz", []byte("\xfd7zXZ\x00\x00"), XZ},
 		{"pdf", []byte("%PDF-1.7\n"), PDF},
 		{"elf", []byte("\x7fELF\x02\x01\x01"), ELF},

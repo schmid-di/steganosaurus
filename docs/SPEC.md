@@ -102,7 +102,7 @@ Exit-Codes: `0` = Analyse ok, kein Flag · `1` = Fehler · `2` = Flag gefunden
 - Signatur-Scan über die gesamte Datei für mindestens diese Formate: ZIP, RAR, 7z, gzip, bzip2, xz, tar, PNG, JPEG, GIF, BMP, PDF, ELF, PE und WAV.
 - Das Ende einer Datei wird über die jeweilige Formatstruktur bestimmt (z. B. ZIP-EOCD, PNG-IEND, JPEG-EOI) und nicht pauschal bis zum Dateiende angenommen.
 - **Daten nach dem regulären Dateiende** (nach IEND bzw. EOI) werden immer als eigener Fund gemeldet.
-- Archive werden automatisch entpackt. Ist ein ZIP passwortgeschützt, wird es als Fund gemeldet und Passwort-Kandidaten werden probiert (siehe F7).
+- Archive werden automatisch entpackt. Ist ein ZIP passwortgeschützt, wird es als Fund gemeldet und Passwort-Kandidaten werden probiert (siehe F7). _Umsetzung: Erkennung und Meldung sind in M2 fertig; das Durchprobieren der Kandidaten kommt mit F7 in M4._
 - Schutz vor Zip-Bombs: Größenlimit und Kompressionsratio-Limit, beide konfigurierbar.
 
 ### F4 – Metadaten
@@ -240,8 +240,8 @@ type Finding struct {
 
 ## 10. Meilensteine
 
-1. **M1 – Grundgerüst:** CLI, Engine, Dateityp-Erkennung, Report (Terminal + JSON), Flag-Erkennung
-2. **M2 – Schnelle Erfolge:** Metadaten, Strings + Encoding-Erkennung, Carving + Rekursion
+1. **M1 – Grundgerüst** ✅: CLI, Engine, Dateityp-Erkennung, Report (Terminal + JSON), Flag-Erkennung
+2. **M2 – Schnelle Erfolge** ✅: Metadaten (F4), Strings + Encoding-Erkennung (F5), Carving + Rekursion (F3)
 3. **M3 – Bilder:** LSB-Analyse, Strukturprüfung und PNG-CRC-Reparatur
 4. **M4 – steghide:** Extraktion, Kontext-Passwörter, paralleles Cracken
 5. **M5 – Release 0.1:** Challenge-Korpus komplett grün, Fuzzing, Release-Binaries
